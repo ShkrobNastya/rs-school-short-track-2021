@@ -1,4 +1,3 @@
-  
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
  * that don't contain a mine have a number in it that indicates the total number of mines
@@ -23,37 +22,28 @@
  * ]
  */
 function minesweeper(matrix) {
-  const result = JSON.parse(JSON.stringify(matrix));
+  const result = [];
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      result[i][j] = 0;
-      if (i > 0 && j > 0 && matrix[i - 1][j - 1]) {
-        result[i][j]++;
+      let sum = 0;
+      if (matrix[i][j - 1] || matrix[i][j + 1]) {
+        sum += 1;
       }
-      if (i + 1 < matrix.length && matrix[i + 1][j]) {
-        result[i][j]++;
+      if (i !== 0) {
+        if (matrix[i - 1][j] || matrix[i - 1][j + 1] || matrix[i - 1][j - 1]) {
+          sum += 1;
+        }
       }
-      if (i > 0 && matrix[i - 1][j]) {
-        result[i][j]++;
+      if (i < matrix.length - 1) {
+        if (matrix[i + 1][j] || matrix[i + 1][j + 1] || matrix[i + 1][j - 1]) {
+          sum += 1;
+        }
       }
-      if (i > 0 && j + 1 < matrix[i].length && matrix[i - 1][j + 1]) {
-        result[i][j]++;
-      }
-      if (j > 0 && matrix[i][j - 1]) {
-        result[i][j]++;
-      }
-      if (j + 1 < matrix[i].length && matrix[i][j + 1]) {
-        result[i][j]++;
-      }
-      if (j > 0 && i + 1 < matrix.length && matrix[i + 1][j - 1]) {
-        result[i][j]++;
-      }
-      if (i + 1 < matrix.length && j + 1 < matrix[i].length && matrix[i + 1][j + 1]) {
-        result[i][j]++;
-      }
+      if (result[i]) {
+        result[i].push(sum);
+      } else { result[i] = [sum]; }
     }
   }
   return result;
 }
-
 module.exports = minesweeper;

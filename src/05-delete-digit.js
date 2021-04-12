@@ -10,16 +10,16 @@
  *
  */
 function deleteDigit(n) {
-  let result = '';
-  let maxResult = 0;
-  const str = n.toString();
-  for (let i = 0; i < str.length; i++) {
-    result = str.slice(0, i) + str.slice(i + 1);
-    if (+result > maxResult) {
-      maxResult = +result;
+  const newN = String(n).split('').map((k) => Number(k));
+  const result = [...newN];
+  result.sort();
+  for (let i = 0; i < newN.length; i++) {
+    if (newN[i] === result[0]) {
+      delete newN[i];
+      break;
     }
   }
-  return maxResult;
+  return Number(newN.filter((k) => k !== undefined).join(''));
 }
 
 module.exports = deleteDigit;

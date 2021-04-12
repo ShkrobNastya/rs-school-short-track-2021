@@ -10,15 +10,16 @@
  * The result should be [-1, 150, 160, 170, -1, -1, 180, 190]
  */
 function sortByHeight(arr) {
-  const result = arr;
-  const arrSm = result.filter((item) => item !== -1).sort((a, b) => a - b);
-  let j = 0;
-  for (let i = 0; i < result.length; i++) {
-    if (result[i] !== -1) {
-      result[i] = arrSm[j];
-      j++;
+  const arr2 = [...arr];
+  const res = arr.filter((n) => n !== -1);
+  const a = res.sort((g, b) => g - b);
+  for (let j = 0; j < arr2.length; j++) {
+    if (arr2[j] === -1) {
+      a.splice(j, 0, arr2[j]);
     }
   }
+  // eslint-disable-next-line eqeqeq
+  const result = a.filter((n) => n != undefined);
   return result;
 }
 
